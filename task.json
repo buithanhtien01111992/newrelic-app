@@ -1,0 +1,135 @@
+{
+    "taskDefinitionArn": "arn:aws:ecs:ap-southeast-1:851725248255:task-definition/newrelic-app-task:15",
+    "containerDefinitions": [
+        {
+            "name": "newrelic-app-pj",
+            "image": "",
+            "cpu": 256,
+            "memory": 512,
+            "portMappings": [
+                {
+                    "containerPort": 8080,
+                    "hostPort": 8080,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "environment": [
+                {
+                    "name": "NEW_RELIC_APP_NAME",
+                    "value": "MyJavaApp"
+                },
+                {
+                    "name": "NEW_RELIC_LICENSE_KEY",
+                    "value": "RAL"
+                }
+            ],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/newrelic-app-task",
+                    "awslogs-region": "ap-southeast-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "systemControls": []
+        },
+        {
+            "name": "newrelic-infra",
+            "image": "newrelic/nri-ecs:latest",
+            "cpu": 256,
+            "memory": 512,
+            "portMappings": [],
+            "essential": true,
+            "environment": [
+                {
+                    "name": "NRIA_LICENSE_KEY",
+                    "value": ""
+                },
+                {
+                    "name": "NRIA_DISABLE_DOCKER",
+                    "value": "true"
+                },
+                {
+                    "name": "FARGATE",
+                    "value": "true"
+                },
+                {
+                    "name": "NRIA_DOCKER_ENABLED",
+                    "value": "false"
+                },
+                {
+                    "name": "ENABLE_NRI_ECS",
+                    "value": "true"
+                },
+                {
+                    "name": "ECS_FARGATE",
+                    "value": "true"
+                },
+                {
+                    "name": "NRIA_OVERRIDE_HOST_ROOT",
+                    "value": "/"
+                }
+            ],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/newrelic-app-task",
+                    "awslogs-region": "ap-southeast-1",
+                    "awslogs-stream-prefix": "newrelic"
+                }
+            },
+            "systemControls": []
+        }
+    ],
+    "family": "newrelic-app-task",
+    "taskRoleArn": "",
+    "executionRoleArn": "",
+    "networkMode": "awsvpc",
+    "revision": 15,
+    "volumes": [],
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        },
+        {
+            "name": "ecs.capability.task-eni"
+        }
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EC2",
+        "FARGATE"
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "512",
+    "memory": "1024",
+    "registeredAt": "2025-02-18T04:08:18.107Z",
+    "registeredBy": "arn:aws:iam::851725248255:root",
+    "tags": []
+}
